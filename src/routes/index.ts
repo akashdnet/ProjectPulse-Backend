@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { AuthRoutes } from '../app/modules/auth/auth.route';
+import { SubmissionRoutes } from '../app/modules/submission/submission.route';
 
 const router = Router();
 
@@ -7,6 +8,10 @@ const moduleRoutes = [
   {
     path: '/auth',
     route: AuthRoutes,
+  },
+  {
+    path: '/submissions',
+    route: SubmissionRoutes,
   },
 ];
 
