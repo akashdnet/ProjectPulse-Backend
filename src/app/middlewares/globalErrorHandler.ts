@@ -73,6 +73,12 @@ export const globalErrorHandler: ErrorRequestHandler = (
     errorDetails = [error.message];
   }
 
+  // Console error logging
+  console.error(`💥 [ERROR HANDLER] ${req.method} ${req.originalUrl} -> Status: ${statusCode} | Message: ${message}`);
+  if (errorDetails.length > 0) {
+    console.error('   Error Details:', errorDetails);
+  }
+
   res.status(statusCode).json({
     success: false,
     message,

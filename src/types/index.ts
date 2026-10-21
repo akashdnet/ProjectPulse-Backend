@@ -1,6 +1,13 @@
 export enum Role {
   STUDENT = 'STUDENT',
   MENTOR = 'MENTOR',
+  ADMIN = 'ADMIN',
+}
+
+export enum UserStatus {
+  PENDING = 'PENDING',
+  ACTIVE = 'ACTIVE',
+  BLOCKED = 'BLOCKED',
 }
 
 export enum ProjectStatus {
@@ -13,6 +20,7 @@ export interface IAuthUser {
   id: string;
   email: string;
   role: Role | string;
+  status?: UserStatus | string;
 }
 
 declare global {

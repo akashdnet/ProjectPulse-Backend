@@ -15,6 +15,9 @@ interface IApiResponse<T> {
 }
 
 export const sendResponse = <T>(res: Response, data: IApiResponse<T>) => {
+  if (data.message) {
+    console.log(`💬 [SUCCESS MESSAGE] ${data.message}`);
+  }
   return res.status(data.statusCode).json({
     success: data.success,
     statusCode: data.statusCode,

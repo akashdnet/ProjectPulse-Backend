@@ -3,6 +3,7 @@ dotenv.config();
 
 import { Server } from 'http';
 import app from './app';
+import { seedSuperAdmin } from './prisma/seed';
 
 const PORT = process.env.PORT || 5000;
 
@@ -10,6 +11,9 @@ let server: Server;
 
 async function bootstrap() {
   try {
+    // Check and seed super admin if not exists
+    await seedSuperAdmin();
+
     server = app.listen(PORT, () => {
       console.log(`🚀 Application is running on port ${PORT}`);
       console.log(`🌐 Base URL: http://localhost:${PORT}/api/v1`);
@@ -46,4 +50,8 @@ async function bootstrap() {
   });
 }
 
-bootstrap();
+if (!process.env.VERCEL) {
+  bootstrap();
+}
+
+export default app;

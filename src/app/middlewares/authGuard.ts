@@ -3,7 +3,7 @@ import jwt, { JwtPayload, Secret } from 'jsonwebtoken';
 import AppError from '../utils/AppError';
 import { IAuthUser, Role } from '../../types';
 
-export const authGuard = (...requiredRoles: (Role | 'STUDENT' | 'MENTOR' | string)[]) => {
+export const authGuard = (...requiredRoles: (Role | 'STUDENT' | 'MENTOR' | 'ADMIN' | string)[]) => {
   return async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const authHeader = req.headers.authorization;

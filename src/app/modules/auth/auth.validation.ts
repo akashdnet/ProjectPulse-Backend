@@ -15,6 +15,12 @@ const signupZodSchema = z.object({
         required_error: 'Password is required',
       })
       .min(6, 'Password must be at least 6 characters long'),
+    role: z
+      .enum(['STUDENT', 'MENTOR'], {
+        invalid_type_error: 'Role must be STUDENT or MENTOR',
+      })
+      .optional()
+      .default('STUDENT'),
   }),
 });
 
