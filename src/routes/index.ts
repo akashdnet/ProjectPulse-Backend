@@ -1,10 +1,15 @@
 import { Router } from 'express';
+import { AuthRoutes } from '../app/modules/auth/auth.route';
 
 const router = Router();
 
-// Module routes will be mounted here in subsequent phases:
-// - Phase 4: AuthRoutes (/auth)
-// - Phase 5: SubmissionRoutes (/submissions)
-// - Phase 6: DashboardRoutes (/dashboard)
+const moduleRoutes = [
+  {
+    path: '/auth',
+    route: AuthRoutes,
+  },
+];
+
+moduleRoutes.forEach((route) => router.use(route.path, route.route));
 
 export default router;
