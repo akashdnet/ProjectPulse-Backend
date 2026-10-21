@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  STUDENT
+  MENTOR
+}
+
+enum ProjectStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model User {
+  id          String       @id @default(uuid())
+  name        String
+  email       String       @unique
+  password    String
+  role        Role         @default(STUDENT)
+  submissions Submission[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@map("users")
+}
+
+model Submission {
+  id          String        @id @default(uuid())
+  projectName String
+  repoUrl     String
+  liveLink    String
+  description String
+  status      ProjectStatus @default(PENDING)
+  
+  studentId   String
+  student     User          @relation(fields: [studentId], references: [id])
+  
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@unique([studentId, repoUrl]) // Prevents duplicate submissions of the same repo by the same student
+  @@index([status]) // Optimizes filtering by status
+  @@map("submissions")
+}
